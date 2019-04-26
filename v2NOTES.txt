@@ -1,0 +1,4 @@
+2019-04-26 KN
+mspTrain -> Creates training specs for the training window
+mspMonitor -> Test new observations
+mspWarning -> Alarm new observations
