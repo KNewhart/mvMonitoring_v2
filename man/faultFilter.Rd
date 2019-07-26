@@ -4,7 +4,8 @@
 \alias{faultFilter}
 \title{Process Fault Filtering}
 \usage{
-faultFilter(trainData, testData, updateFreq, faultsToTriggerAlarm = 5, ...)
+faultFilter(trainData, testData, updateFreq, faultsToTriggerAlarm = 5,
+  statistic = "T2", ...)
 }
 \arguments{
 \item{trainData}{An xts data matrix of initial training observations}
@@ -16,6 +17,8 @@ must be returned to update the training data matrix and move it forward.}
 
 \item{faultsToTriggerAlarm}{Specifies how many sequential faults will cause
 an alarm to trigger. Defaults to 5.}
+
+\item{statistic}{"T2" or "SPE"}
 
 \item{...}{Lazy dots for additional internal arguments}
 }

@@ -4,8 +4,8 @@
 \alias{processNOCdata}
 \title{Simulate NOC Observations from a Single-State or Multi-State Process}
 \usage{
-processNOCdata(startTime = "2015-05-16 10:00:00 CST", period = 7 * 24 * 60,
-  stateDuration = 60, increment = "min", multiState = TRUE,
+processNOCdata(startTime = "2015-05-16 10:00:00 CST", period = 7 * 24 *
+  60, stateDuration = 60, increment = "min", multiState = TRUE,
   autocorellation = 0.75, tLower = 0.01, tUpper = 2, errVar = 0.01)
 }
 \arguments{

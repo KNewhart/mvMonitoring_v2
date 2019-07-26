@@ -69,13 +69,13 @@ mspWarning <- function(mspMonitor_object,
 
   data_xts <- mspMonitor_object
   n <- nrow(data_xts)
-
-  # If we see flags on the last row, then we continue
-  if(data_xts[n, "SPE_Flag"] == 1 || data_xts[n, "T2_Flag"] == 1){
-
-    # If we also have enough observations to even trigger an alarm, then we
-    # continue
-    if(n >= faultsToTriggerAlarm){
+# 
+#   # If we see flags on the last row, then we continue
+#   if(data_xts[n, "SPE_Flag"] == 1 || data_xts[n, "T2_Flag"] == 1){
+# 
+#     # If we also have enough observations to even trigger an alarm, then we
+#     # continue
+#     if(n >= faultsToTriggerAlarm){
 
       # We create the Alarm Standard
       alarmCheck <- rep(1, faultsToTriggerAlarm)
@@ -83,27 +83,28 @@ mspWarning <- function(mspMonitor_object,
       # Now that we are checking the alarm state for observation n, we write a
       # 0 over the previous NA value. This shows us that NAs mean the state for
       # that specific observation have not been checked.
-      data_xts[n, "Alarm"] <- 0
-
+      data_xts[, "Alarm"] <- 0
+for(i in faultsToTriggerAlarm:n) {
       # We now check the last few T2 flags
-      x1 <- as.vector(data_xts[(n - faultsToTriggerAlarm + 1):n, "T2_Flag"])
+      x1 <- as.vector(data_xts[(i-faultsToTriggerAlarm+1):(i), "T2_Flag"])
       if(identical(x1, alarmCheck)){
-        data_xts[n, "Alarm"] <- 1
+        data_xts[i, "Alarm"] <- 1
       }
 
       # And we also check the last few SPE flags. We will increment the Alarm
       #state based on SPE flag status, T2 flag status, or both
-      x2 <- as.vector(data_xts[(n - faultsToTriggerAlarm + 1):n, "SPE_Flag"])
+      x2 <- as.vector(data_xts[(i-faultsToTriggerAlarm+1):(i), "SPE_Flag"])
       if(identical(x2, alarmCheck)){
-        data_xts[n, "Alarm"] <- data_xts[n, "Alarm"] + 2
+        data_xts[i, "Alarm"] <- data_xts[n, "Alarm"] + 2
       }
-    }
-  }else{
-    if(n >= faultsToTriggerAlarm){
-      # If we didn't see a flag on the last row, then no problem
-      data_xts[n, "Alarm"] <- 0
-    }
-  }
-  data_xts
+}
+  #   }
+  # }else{
+  #   if(n >= faultsToTriggerAlarm){
+  #     # If we didn't see a flag on the last row, then no problem
+  #     data_xts[n, "Alarm"] <- 0
+  #   }
+  # }
+  return(data_xts)
 }
 

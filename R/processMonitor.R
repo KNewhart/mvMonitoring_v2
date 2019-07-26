@@ -10,7 +10,7 @@
 #'   of training observations.
 #' @param faultsToTriggerAlarm The number of sequential faults needed to trigger
 #'   an alarm. Defaults to 5.
-#'
+#' @param  statistic "T2" or "SPE"
 #' @return A list with the following components:
 #'   \itemize{
 #'     \item{FaultChecks -- }{a class-specific xts flagging matrix with the
@@ -67,6 +67,7 @@ processMonitor <- function(data,
                            trainObs,
                            updateFreq = ceiling(0.5 * trainObs),
                            faultsToTriggerAlarm = 5,
+                           statistic = "T2",
                            ...){
 
   ls <- lazy_dots(...)
@@ -78,6 +79,7 @@ processMonitor <- function(data,
                               testData = data[(trainObs + 1):nrow(data), ],
                               updateFreq = updateFreq,
                               faultsToTriggerAlarm = faultsToTriggerAlarm),
+                              statistic = statistic,
                         lazy_eval(ls)))
   fault_xts <- faultObj_ls$faultObj
   obsToKeepNew <- faultObj_ls$nonAlarmedTestObs
@@ -105,6 +107,7 @@ processMonitor <- function(data,
                                          testData = testData,
                                          updateFreq = updateFreq,
                                          faultsToTriggerAlarm = faultsToTriggerAlarm),
+                                         statistic = statistic, # Added in v2
                                     lazy_eval(ls)))
 
     # Update the monitoring statistic values in the fault matrix. Because of
@@ -123,7 +126,10 @@ processMonitor <- function(data,
   colnames(fault_xts) <- faultNames
 
   # Alarms
-  alarms_xts <- fault_xts[fault_xts[,5] != 0, ]
+  # alarms_xts <- fault_xts[fault_xts[,5] != 0, ] # Removed in v2
+  if(statistic == "T2") alarms_xts <- fault_xts[fault_xts[, 5] %in%c(1, 3), ] # Added in v2
+  if(statistic == "SPE") alarms_xts <- fault_xts[fault_xts[, 5] %in%c(2, 3), ] # Added in v2
+
   alarmIndex <- index(alarms_xts)
   alarmObs <- data[alarmIndex]
   alarms_xts <- cbind(alarmObs, alarms_xts)

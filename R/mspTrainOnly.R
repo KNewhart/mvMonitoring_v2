@@ -181,9 +181,10 @@ mspTrain <- function(data,
             args = c(list(data = data_ls[[names(classes)[i]]],
                           trainObs = floor(trainObs * memberProp[i]),
                           updateFreq = floor(updateFreq * memberProp[i]),
-                          faultsToTriggerAlarm = faultsToTriggerAlarm,
+                          faultsToTriggerAlarm = faultsToTriggerAlarm),
                           statistic = statistic, # Added in v2
-                          lazy_eval(ls))))})
+                     lazy_eval(ls)))
+  })
 
   names(monitorResults) <- names(classes)
 

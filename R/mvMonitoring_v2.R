@@ -1,4 +1,4 @@
-#' @name mvMonitoring
+#' @name mvMonitoringv2
 #'
 #' @title A Package for Multivariate Statistical Process Monitoring
 #'
@@ -29,6 +29,6 @@
 #'   }
 #'
 #' @docType package
-#' @name mvMonitoring
+#' @name mvMonitoringv2
 
 NULL

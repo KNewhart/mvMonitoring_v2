@@ -5,7 +5,7 @@
 \title{Adaptive Process Training}
 \usage{
 processMonitor(data, trainObs, updateFreq = ceiling(0.5 * trainObs),
-  faultsToTriggerAlarm = 5, ...)
+  faultsToTriggerAlarm = 5, statistic = "T2", ...)
 }
 \arguments{
 \item{data}{An xts data matrix}
@@ -18,6 +18,8 @@ of training observations.}
 
 \item{faultsToTriggerAlarm}{The number of sequential faults needed to trigger
 an alarm. Defaults to 5.}
+
+\item{statistic}{"T2" or "SPE"}
 
 \item{...}{Lazy dots for additional internal arguments}
 }
