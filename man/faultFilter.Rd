@@ -5,7 +5,7 @@
 \title{Process Fault Filtering}
 \usage{
 faultFilter(trainData, testData, updateFreq, faultsToTriggerAlarm = 5,
-  statistic = "T2", ...)
+  statistic, ...)
 }
 \arguments{
 \item{trainData}{An xts data matrix of initial training observations}

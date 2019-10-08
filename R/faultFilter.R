@@ -88,7 +88,7 @@ faultFilter <- function(trainData,
                         testData,
                         updateFreq,
                         faultsToTriggerAlarm = 5,
-                        statistic = "T2", # Added in v2
+                        statistic, # Added in v2
                         ...){
 
   # browser()
@@ -104,7 +104,7 @@ faultFilter <- function(trainData,
   # Call the pca.R file, passing in the scaled training data matrix and the
   # proportion of energy to preserve in the projection (defaults to 95%)
   pcaObj <- do.call(pca, args = c(list(data = scaledTrainData)
-                                  # , lazy_eval(ls)
+                                  , lazy_eval(ls)
                                   ))
 
   # Call the threshold.R file, passing in the object returned by the pca call
@@ -166,6 +166,7 @@ faultFilter <- function(trainData,
   # nonAlarmedObs <- faultObj[faultObj[,5] == 0, ] # Removed in v2
   if(statistic == "T2") nonAlarmedObs <- faultObj[faultObj[, 5]%in%c(0, 2), ] # Added in v2
   if(statistic == "SPE") nonAlarmedObs <- faultObj[faultObj[, 5]%in%c(0, 1), ] # Added in v2
+  if(statistic == "SPE_T2") nonAlarmedObs <- faultObj[faultObj[,5] == 0, ] # Added in v2
 
   keptObsIndex <- head(index(nonAlarmedObs), n = updateFreq)
   keptObs <- testData[keptObsIndex]
