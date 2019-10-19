@@ -166,7 +166,7 @@ faultFilter <- function(trainData,
   # nonAlarmedObs <- faultObj[faultObj[,5] == 0, ] # Removed in v2
   if(statistic == "T2") nonAlarmedObs <- faultObj[faultObj[, 5]%in%c(0, 2), ] # Added in v2
   if(statistic == "SPE") nonAlarmedObs <- faultObj[faultObj[, 5]%in%c(0, 1), ] # Added in v2
-  if(statistic == "SPE_T2") nonAlarmedObs <- faultObj[faultObj[,5] == 0, ] # Added in v2
+  if(statistic == "SPE_T2") nonAlarmedObs <- faultObj[faultObj[,5]%in%c(0, 1, 2), ] # Added in v2
 
   keptObsIndex <- head(index(nonAlarmedObs), n = updateFreq)
   keptObs <- testData[keptObsIndex]

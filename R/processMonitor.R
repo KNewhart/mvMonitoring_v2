@@ -129,7 +129,7 @@ processMonitor <- function(data,
   # alarms_xts <- fault_xts[fault_xts[,5] != 0, ] # Removed in v2
   if(statistic == "T2") alarms_xts <- fault_xts[fault_xts[, 5] %in%c(1, 3), ] # Added in v2
   if(statistic == "SPE") alarms_xts <- fault_xts[fault_xts[, 5] %in%c(2, 3), ] # Added in v2
-  if(statistic == "SPE_T2") alarms_xts <- fault_xts[fault_xts[,5] != 0, ]
+  if(statistic == "SPE_T2") alarms_xts <- fault_xts[fault_xts[,5] %in%c(3), ]
 
   alarmIndex <- index(alarms_xts)
   alarmObs <- data[alarmIndex]
